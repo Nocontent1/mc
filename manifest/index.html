@@ -25,7 +25,7 @@ style="height:20vh;"
 placeholder="Description" id="dd">
 </textarea>
 <cont>
-<a bbg mid-mb row bdr="25" onmousedown="genManifest()">
+<a bbg mid-mb row bdr="25" onmousedown="genManifest();genRP();">
 <i m mid class="fa-solid fa-floppy-disk"></i>
 <p m agr bold>export</p>
 </a>
@@ -41,6 +41,22 @@ return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
 return v.toString(16);
 });
+}
+
+function genRP() {
+
+const manifest = `
+[{"pack_id":"${uuid()","version":[1,0,2]},
+`;
+
+const blob = new Blob([manifest], { type: 'application/json' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = 'world_resource_packs.json';
+a.click();
+URL.revokeObjectURL(url);
+
 }
 function genManifest() {
 let dn = document.getElementById("dn");
@@ -71,7 +87,9 @@ const a = document.createElement('a');
 a.href = url;
 a.download = 'manifest.json';
 a.click();
-URL.revokeObjectURL(url);}
+URL.revokeObjectURL(url);
+
+}
 
 </script>
 </body>
